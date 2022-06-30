@@ -1,57 +1,88 @@
-// Initialize an array storing the different plays 
-const plays = ['ROCK','PAPER', 'SCISSORS']
-// Initialize a variable that randomly selects a value from the plays array 
-const randomPlay = Math.floor(Math.random() * plays.length);
-// Initialize a function that returns the computers Play 
+let winner = 0;
+let playerScore = 0;
+let compScore = 0;
+
 
 // Function that returns either rock paper or scissors from the plays array 
 function computerPlay(){
+    // Initialize an array storing the different plays 
+    const plays = ['ROCK','PAPER', 'SCISSORS']
+    // Initialize a variable that randomly selects a value from the plays array 
+    const randomPlay = Math.floor(Math.random() * plays.length);
+    // Initialize a function that returns the computers Play 
     compSelection = plays[randomPlay]
     return compSelection;
 }
 
-// Set the decision of the computer selection  to store the computer selection 
-    computerSelection = computerPlay();
-
-
-// Initialize a function that plays Rock Paper Scissors for one round taking in two parameters playerSelection and computerSelection and returns a string declaring the winner 
-function play(playerSelection, computerSelection){
+// Initialize a function that plays Rock Paper Scissors for one round taking in two parameters 
+//playerSelection and computerSelection and returns a string declaring the winner 
+function playRound(computerSelection, playerSelection){
+    
     //Compare the two selections and return the winner 
     
     // Computer edge cases 
-    if (computerSelection ==='ROCK' && playerSelection.toLowerCase() === 'scissors'){
-        return alert("You Lose! Rock beats Scissors")
-    } else if (computerSelection === 'PAPER' && playerSelection.toLowerCase() === 'rock'){
-        return alert("You Lose! Paper beats Rock")
-    }else if (computerSelection === 'SCISSORS' && playerSelection.toLowerCase() === 'paper'){
-        return alert("You Lose! Scissors beats Paper")
+    if (computerSelection == 'ROCK' && playerSelection == 'SCISSORS'){
+        compScore += 1;
+        return computerSelection + ' beats ' + playerSelection + '. You lose!';
+    } else if (computerSelection == 'PAPER' && playerSelection == 'ROCK'){
+        compScore += 1;
+        return computerSelection + ' beats ' + playerSelection + '. You lose!';
+    }else if (computerSelection == 'SCISSORS' && playerSelection == 'PAPER'){
+        compScore += 1;
+        return computerSelection + ' beats ' + playerSelection + '. You lose!';
         // Player edge cases 
-    }else if (playerSelection.toLowerCase() === 'paper' && computerSelection === 'ROCK'){
-        return alert("You win! Paper beats Rock")
-    }else if (playerSelection.toLowerCase() === 'scissors' && computerSelection === 'PAPER'){
-        return alert("You win! Scissors beats Paper")
-    }else if(playerSelection.toLowerCase() === 'rock' && computerSelection === 'SCISSORS'){
-        return alert("You win! Rock beats Scissors")
+    }else if (playerSelection == 'PAPER' && computerSelection == 'ROCK'){
+        playerScore += 1;
+        return playerSelection + ' beats ' + computerSelection + '. Congrats!';
+    }else if (playerSelection == 'SCISSORS' && computerSelection == 'PAPER'){
+        playerScore += 1;
+        return playerSelection + ' beats ' + computerSelection + '. Congrats!';
+    }else if(playerSelection == 'ROCK' && computerSelection == 'SCISSORS'){
+        playerScore += 1;
+        return playerSelection + ' beats ' + computerSelection + '. Congrats!';
+    }
+    // Edge case where both select the same weapon 
+    else if (playerSelection == computerSelection){
+        return "It's a Draw! Try again";
+    }
+    // Edge case where the player enters something that is not valid 
+    else{
+        return "Invalid entry, try again!"
     }
 
-    
 }
 
+// Function to run the game 
+function game(){
+    while (playerScore != 5  && compScore != 5){
+        // get player selection 
+        let playerSelection = prompt('Enter your selection: ');
+        // get computer selection 
+        let computerSelection = computerPlay();
+        // make sure player selection is case insensitive 
+        playerSelection = playerSelection.toUpperCase();
+        computerSelection = computerSelection.toUpperCase();
+        // Call the playRound function to iniate a game of paper, rock, scissors
+        // Then alert the return value 
+        alert(playRound(computerSelection, playerSelection));
+        console.log("player",playerScore);
+        console.log("comp",compScore);
+    }
+    // alert who the winner of the whole game is 
+    alert(win_prompt());
+}
+//Funtion that returns who won 
+function win_prompt(){
+    if (playerScore == 5){
+        return 'Player Wins!';
+    }
+    if (compScore == 5){
+        return 'Computer Wins!';
+    }
+}
 
-console.log(computerSelection);
-
-
-
-// Take in user selection 
-// Initialize a variable playerSelection to store the players move 
-var playerSelection = prompt('Enter your selection: ')
-
-
-//Call play function to play paper - rock - scissors 
-play(playerSelection, computerSelection);
-
-
-
+// Call the game function to play 5 rounds of the game
+game();
 
 
 

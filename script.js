@@ -1,6 +1,27 @@
-let winner = 0;
+
+
+
+
+
+
+
+
+
+// Variables to store the current score of the player
+// and the computer 
 let playerScore = 0;
 let compScore = 0;
+
+// Show score & Update Score Function 
+function updateScore(){
+    var lblScore = document.getElementById('player-score');
+    var comLblScore = document.getElementById('computer-score')
+    lblScore.innerHTML = `Player Score: ${playerScore}`;
+    comLblScore.innerHTML = `Computer Score: ${compScore}`;
+
+    return "Current Score: " + "\n" +  "Player:" + playerScore + "\n" + "Computer: "+ compScore;
+}
+
 
 
 // Function that returns either rock paper or scissors from the plays array 
@@ -64,12 +85,14 @@ function game(){
         computerSelection = computerSelection.toUpperCase();
         // Call the playRound function to iniate a game of paper, rock, scissors
         // Then alert the return value 
-        alert(playRound(computerSelection, playerSelection));
-        console.log("player",playerScore);
-        console.log("comp",compScore);
+        console.log(playRound(computerSelection,playerSelection));
+        // Update the score 
+        updateScore();
+        //console.log("player",playerScore);
+        //console.log("comp",compScore);
     }
     // alert who the winner of the whole game is 
-    alert(win_prompt());
+    console.log(win_prompt());
 }
 //Funtion that returns who won 
 function win_prompt(){
